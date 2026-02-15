@@ -1,8 +1,10 @@
+# Hello,Iris' World
+
 <div align="center">
 
   
 
-#  Ciallo～(∠・ω< )⌒★, I'm Iris (Moon)
+##  Ciallo～(∠・ω< )⌒★, I'm Iris (Moon)
 
   
 
@@ -10,7 +12,6 @@
 
   
 
----
 
   
 
@@ -40,10 +41,6 @@
 
   
 
----
-
-  
-
 大学四年一事无成很抱歉呢！真庆幸自己生在一个有人工智能的时代，像我这样不学无术的人随便点点手指、偶尔读几行代码，就被叫做 **Vibe-coding** 了。
 
   
@@ -52,16 +49,4 @@
 
   
 
----
 
-  
-
-<div align="center">
-
-  
-
-![Profile Views](https://komarev.com/ghpvc/?username=theforeveriris&color=00b0f0&style=flat-square&label=访客数)
-
-  
-
-</div>

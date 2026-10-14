@@ -14,7 +14,7 @@ const PAD = 40;
 const TOP = 46;
 const LH = 27;
 const FS = 15;
-const CHW = 9.3;
+const CHW = 8.7;
 const CHAR_MS = 42;
 const OUT_MS = 45;
 const PAUSE_MS = 350;
@@ -113,17 +113,12 @@ const info = [
   [["──────────────────────", G.main]],
   [["OS", G.bright], [":        计科院学生 ", G.main], ["(快过期)", G.bright]],
   [["Host", G.bright], [":      普普通通双非一本", G.main]],
-  [["Kernel", G.bright], [":    Vibe-coding 4.0", G.main]],
   [["Uptime", G.bright], [":    大学四年一事无成", G.main]],
   [["Shell", G.bright], [":     Ciallo～(∠・ω< )⌒★", G.main]],
-  [["Skills", G.bright], [":    算法 · 前后端 · 数据库", G.main]],
-  [["       网络攻防 · 嵌入式 · 路由交换", G.mid]],
-  [["       数据分析 · MMD神秘视频", G.mid]],
-  [["       文学 · 哲学 · 政治", G.mid]],
   [["Weakness", G.bright], [": 听! 不! 懂! ", G.main], ["(不要聊太深奥)", G.bright]],
   [["Habit", G.bright], [":    挖一万个新坑, 不填", G.main]],
   [["Aliases", G.bright], [":  Iris · 鸢尾 · 月", G.main]],
-  [["       ~~小爱同学~~ ", G.mid], ["(不是那个新世界的卡密)", G.bright]],
+  [["       ~~小爱同学~~", G.mid]],
 ];
 const INFO_Y0 = IMG_Y + FS;
 info.forEach((parts, i) => {
@@ -143,9 +138,10 @@ const LS_Y = palY + 46;
 const ls = typedCmd(PAD, LS_Y, "ls ~/skills/");
 
 const lsItems = [
-  "C", "C++", "Python", "Java",
-  "MySQL", "Linux", "Docker", "嵌入式",
-  "信息安全", "路由交换", "MMD", "科研绘图",
+  "vibecoding", "C", "C++", "Python",
+  "Java", "MySQL", "Linux", "Docker",
+  "嵌入式", "信息安全", "路由交换", "MMD",
+  "科研绘图",
 ];
 const COL_W = [0, 120, 250, 410];
 const lsShades = [G.bright, G.main, G.mid];

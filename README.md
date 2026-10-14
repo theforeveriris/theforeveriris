@@ -1,8 +1,23 @@
-# Hello, Iris' World
 
 <div align="center">
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=1000&color=00b0f0&center=true&vCenter=true&multiline=true&repeat=false&random=false&width=600&height=80&lines=Ciallo%E2%88%BC(%E2%88%A0%E3%83%BB%CF%89%3C+%20)%E2%8C%92%E2%98%85%2C+I'm+Iris+(Moon)" alt="Typing SVG"/>
+
+</div>
+
+
+<div align="center">
+
+<img height="160" src="https://github-readme-stats.vercel.app/api?username=theforeveriris&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats"/>
+<img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=theforeveriris&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages"/>
+
+</div>
+
+
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/theforeveriris/theforeveriris/output/github-contribution-grid-snake.svg" alt="Snake animation"/>
 
 </div>
 
@@ -20,32 +35,6 @@
 
   
 
-```
-//→算法
-  →常见前后端技术栈
-  →数据库
-  →网络攻防→信息安全
-  →嵌入式
-  →建模→使用pmx模型制作神秘视频
-  →路由交换
-  →数据分析→科研绘图
-  →文学→哲学→政治
-  → ...
-```
-
-在内的绝大多数领域的问题，但不要聊的太深奥，我的会 **<font color="#e53285">听! 不! 懂!</font>**
-
-  
-
-大学四年一事无成很抱歉呢！真庆幸自己生在一个有人工智能的时代，像我这样不学无术的人随便点点手指、偶尔读几行代码，就被叫做 **Vibe-coding** 了。
-
-  
-
-谢谢大家看我这样一个无聊的人的主页，可以叫我 **Iris**、**鸢尾**、~~小爱同学~~ 或者我常用的昵称 **月**（<font color="#e53285">不是那个新世界的卡密</font>喵）
-
-<br/>
-
-## 🛠️ 技术栈 / 会一点点的领域
 
 <div align="center">
 
@@ -66,19 +55,22 @@
 
 </div>
 
-## 📊 GitHub 统计
 
-<div align="center">
+在内的绝大多数领域的问题，但不要聊的太深奥，我的会 **<font color="#e53285">听! 不! 懂!</font>**
 
-<img height="160" src="https://github-readme-stats.vercel.app/api?username=theforeveriris&show_icons=true&theme=tokyonight&hide_border=true" alt="GitHub Stats"/>
-<img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=theforeveriris&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages"/>
+  
 
-</div>
+大学四年一事无成很抱歉呢！真庆幸自己生在一个有人工智能的时代，像我这样不学无术的人随便点点手指、偶尔读几行代码，就被叫做 **Vibe-coding** 了。
 
-## 🐍 蛇蛇正在吃掉我的贡献图
+  
 
-<div align="center">
+谢谢大家看我这样一个无聊的人的主页，可以叫我 **Iris**、**鸢尾**、~~小爱同学~~ 或者我常用的昵称 **月**（<font color="#e53285">不是那个新世界的卡密</font>喵）
 
-<img src="https://raw.githubusercontent.com/theforeveriris/theforeveriris/output/github-contribution-grid-snake.svg" alt="Snake animation"/>
+<br/>
 
-</div>
+
+
+
+
+
+

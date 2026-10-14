@@ -18,7 +18,10 @@ async function fetchStats(user) {
       : { "User-Agent": "terminal-svg" };
     const years = await fetch(
       `https://github-contributions-api.jogruber.de/v4/${user}`
-    ).then((r) => r.json());
+    ).then((r) => {
+      if (!r.ok) throw new Error(`contributions API ${r.status}`);
+      return r.json();
+    });
     if (years && years.total) {
       // total is {year: count, ...} — sum all years
       const tot = years.total;
@@ -27,7 +30,10 @@ async function fetchStats(user) {
     }    const repos = await fetch(
       `https://api.github.com/users/${user}/repos?per_page=100`,
       { headers: hdr }
-    ).then((r) => r.json());
+    ).then((r) => {
+      if (!r.ok) throw new Error(`repos API ${r.status}`);
+      return r.json();
+    });
     if (Array.isArray(repos))
       out.stars = String(repos.reduce((s, r) => s + r.stargazers_count, 0));
     // per-repo stats for ls -a -l ~/repos/
@@ -63,7 +69,23 @@ async function fetchStats(user) {
     }
     out.repoStats = repoStats;
   } catch (e) {
-    console.warn("stats fetch failed, using '?':", e.message);
+    console.warn("stats fetch failed, using cached/fallback:", e.message);
+    // fall back to last known good stats (avoids '?' during API rate limits)
+    try {
+      const cached = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "stats-cache.json"), "utf8")
+      );
+      Object.assign(out, cached);
+    } catch (_) {
+      /* no cache — keep '?' */
+    }
+  }
+  // persist for next run
+  if (out.stars !== "?" && out.commits !== "?") {
+    fs.writeFileSync(
+      path.join(__dirname, "stats-cache.json"),
+      JSON.stringify(out, null, 2)
+    );
   }
   return out;
 }
@@ -112,9 +134,7 @@ function vwidth(text) {
 
 function render(CFG, stats) {
   let body = [];
-  let styles = [];
-  let styleCount = 0;
-  let t = 0; // animation clock
+  let t = 0; // animation clock (no longer used for delays, kept for future)
 
   function textLine(x, y, content, at) {
     const delay = at !== undefined ? at : t;
@@ -123,7 +143,7 @@ function render(CFG, stats) {
       ? content.map(([txt, c]) => `<tspan fill="${c}">${esc(txt)}</tspan>`).join("")
       : spans(content);
     body.push(
-      `<text class="ln" style="animation-delay:${delay}ms" x="${x}" y="${y}" font-size="${FS}">${inner}</text>`
+      `<text class="ln" x="${x}" y="${y}" font-size="${FS}">${inner}</text>`
     );
   }
 
@@ -144,30 +164,15 @@ function render(CFG, stats) {
       px += vwidth(txt);
     }
     for (let i = 0; i < cmd.length; i++) {
-      spansOut += `<tspan class="ch" style="animation-delay:${t + i * CHAR_MS}ms" fill="${G.bright}">${esc(cmd[i])}</tspan>`;
+      spansOut += `<tspan class="ch" fill="${G.bright}">${esc(cmd[i])}</tspan>`;
     }
     body.push(`<text x="${x}" y="${y}" font-size="${FS}">${spansOut}</text>`);
-
-    const lineEnd = t + cmd.length * CHAR_MS;
-    const DUR = lineEnd - t + CHAR_MS;
-    for (let i = 0; i <= cmd.length; i++) {
-      const from = (i * CHAR_MS * 100) / DUR;
-      const to = ((i + 1) * CHAR_MS * 100) / DUR;
-      const name = `c${styleCount++}`;
-      styles.push(
-        `@keyframes ${name} { 0%,${from.toFixed(1)}% { opacity: 1; } ${from === 0 ? "" : `${to.toFixed(1)}%,`}100% { opacity: 0; } }`
-      );
-      body.push(
-        `<rect x="${px + i * CHW}" y="${y - FS + 3}" width="${CHW - 1}" height="${FS - 1}" fill="${G.bright}" style="animation:${name} ${DUR}ms forwards; opacity:1"/>`
-      );
-    }
-    t = lineEnd + PAUSE_MS;
-    return { endX: px + cmd.length * CHW, endY: y, at: lineEnd };
+    return { endX: px + vwidth(cmd), endY: y };
   }
 
-  function blinkCursor(x, y, at) {
+  function blinkCursor(x, y) {
     body.push(
-      `<rect class="cur" style="animation-delay:${at}ms" x="${x}" y="${y - FS + 3}" width="${CHW - 1}" height="${FS - 1}" fill="${G.bright}"/>`
+      `<rect class="cur" x="${x}" y="${y - FS + 3}" width="${CHW - 1}" height="${FS - 1}" fill="${G.bright}"/>`
     );
   }
 
@@ -202,7 +207,7 @@ function render(CFG, stats) {
       const imgW = Math.min(CFG.avatar.width, Math.round(imgH * (pngW / pngH)));
       const IMG_Y = oy - FS + 3;
       body.push(
-        `<image class="ln" style="animation-delay:${t}ms" x="${IMG_X}" y="${IMG_Y}" width="${imgW}" height="${imgH}" preserveAspectRatio="xMidYMin meet" filter="url(#greenify)" href="data:image/png;base64,${pngBuf.toString("base64")}"/>`
+        `<image class="ln" x="${IMG_X}" y="${IMG_Y}" width="${imgW}" height="${imgH}" preserveAspectRatio="xMidYMin meet" filter="url(#greenify)" href="data:image/png;base64,${pngBuf.toString("base64")}"/>`
       );
       t += OUT_MS;
 
@@ -221,7 +226,7 @@ function render(CFG, stats) {
         [G.bright, G.main, G.mid, G.dim, G.bright, G.main, G.mid, G.dim].forEach(
           (col, i) => {
             body.push(
-              `<rect class="ln" style="animation-delay:${t}ms" x="${INFO_X + i * 34}" y="${py}" width="28" height="13" fill="${col}"/>`
+              `<rect class="ln" x="${INFO_X + i * 34}" y="${py}" width="28" height="13" fill="${col}"/>`
             );
           }
         );
@@ -291,7 +296,7 @@ function render(CFG, stats) {
         hline += `<tspan x="${x}" fill="${c}"${anchor ? ` text-anchor="${anchor}"` : ""}>${esc(txt)}</tspan>`;
       }
       body.push(
-        `<text class="ln" style="animation-delay:${t}ms" x="0" y="${oy}" font-size="${FS}">${hline}</text>`
+        `<text class="ln" x="0" y="${oy}" font-size="${FS}">${hline}</text>`
       );
       t += OUT_MS;
       let ry = oy + LH;
@@ -310,7 +315,7 @@ function render(CFG, stats) {
           line += `<tspan x="${x}" fill="${c}"${anchor ? ` text-anchor="${anchor}"` : ""}>${esc(txt)}</tspan>`;
         }
         body.push(
-          `<text class="ln" style="animation-delay:${t}ms" x="0" y="${ry}" font-size="${FS}">${line}</text>`
+          `<text class="ln" x="0" y="${ry}" font-size="${FS}">${line}</text>`
         );
         t += OUT_MS;
         ry += LH;
@@ -323,7 +328,7 @@ function render(CFG, stats) {
   }
 
   // blinking cursor after the final command
-  blinkCursor(lastCursor.endX, lastCursor.endY, lastCursor.at);
+  blinkCursor(lastCursor.endX, lastCursor.endY);
 
   // ---------- CRT screen ----------
   const H = Math.ceil(y + PAD - BLOCK_GAP + 10);
@@ -338,14 +343,10 @@ function render(CFG, stats) {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="'JetBrains Mono','Noto Sans Mono CJK SC','Cascadia Code',Consolas,monospace">
 <style>
-  .ln { animation: ap .12s ease-out both; }
-  .ch { animation: ap .05s steps(1) both; }
-  @keyframes ap { from { opacity: 0; } to { opacity: 1; } }
-  .cur { animation: blink 1.1s steps(1) infinite; }
-  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+  .ln { opacity: 1; }
+  .ch { opacity: 1; }
   .flicker { animation: flick 4s linear infinite; }
   @keyframes flick { 0%,100% { opacity: 1; } 96% { opacity: 1; } 97% { opacity: .92; } 98% { opacity: 1; } }
-  ${styles.join("\n  ")}
 </style>
 <defs>
   <filter id="greenify" x="0" y="0" width="100%" height="100%">

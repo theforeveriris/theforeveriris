@@ -168,9 +168,9 @@ const H = EXIT_Y + BODY_PAD + 10;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="'JetBrains Mono','Noto Sans Mono CJK SC','Cascadia Code',Consolas,monospace">
 <style>
-  .ln { opacity: 0; animation: ap .15s steps(1) forwards; }
-  @keyframes ap { to { opacity: 1; } }
-  .cur { opacity: 0; animation: blink 1.1s steps(1) infinite; }
+  .ln { animation: ap .18s ease-out both; }
+  @keyframes ap { from { opacity: 0; } to { opacity: 1; } }
+  .cur { animation: blink 1.1s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 </style>
 <defs>

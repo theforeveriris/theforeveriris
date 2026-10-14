@@ -1,46 +1,50 @@
-name: render terminal
+name: render terminal and snake
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   push:
     branches: [main]
     paths:
       - "terminal/**"
+      - "img/**"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  render:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install Chinese fonts
-        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk fonts-jetbrains-mono
 
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Install puppeteer
+      # terminal svg
+      - name: Build terminal.svg
         run: |
           cd terminal
           npm init -y >/dev/null
-          npm install puppeteer
+          node build-svg.js
 
-      - name: Render terminal.html to SVG + PNG
-        run: |
-          cd terminal
-          node render.js
+      # snake
+      - name: Generate snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            terminal/dist/github-contribution-grid-snake.svg
+            terminal/dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      - name: Push to output branch
+      - name: Deploy to output branch
         uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output
           build_dir: terminal/dist
-          keep_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

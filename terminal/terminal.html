@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; font-family: 'JetBrains Mono', 'Noto Sans Mono CJK SC', monospace; }
+  #terminal {
+    width: 880px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #161b22;
+    padding: 12px 16px;
+    border-bottom: 1px solid #30363d;
+  }
+  .dot { width: 13px; height: 13px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .title {
+    flex: 1; text-align: center;
+    color: #8b949e; font-size: 14px;
+  }
+  .body { padding: 20px 24px; }
+  pre { font-family: inherit; font-size: 15px; line-height: 1.55; color: #c9d1d9; }
+  .prompt-user { color: #00ff9c; }
+  .prompt-path { color: #79c0ff; }
+  .cmd { color: #c9d1d9; }
+  .neofetch { display: flex; gap: 28px; margin-top: 14px; }
+  .neofetch img { width: 300px; border-radius: 10px; margin-top: 6px; }
+  .k { color: #00b0f0; }
+  .pk { color: #e53285; }
+  .ascii { color: #e53285; }
+  .chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; max-width: 820px; }
+  .chip {
+    background: rgba(0, 176, 240, 0.12);
+    border: 1px solid #00b0f0;
+    color: #00b0f0;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+<div id="terminal">
+  <div class="titlebar">
+    <span class="dot red"></span>
+    <span class="dot yellow"></span>
+    <span class="dot green"></span>
+    <div class="title">iris@github: ~ — zsh</div>
+  </div>
+  <div class="body">
+    <pre><span class="prompt-user">iris@github</span>:<span class="prompt-path">~</span>$ <span class="cmd">neofetch</span></pre>
+    <div class="neofetch">
+      <div><img src="../img/main.png" alt="avatar"></div>
+      <pre>
+<span class="k">iris</span>@<span class="k">github</span>
+<span class="pk">──────────────────</span>
+<span class="k">OS</span>:        计科院学生 <span class="pk">(快过期)</span>
+<span class="k">Host</span>:      普普通通双非一本
+<span class="k">Kernel</span>:    Vibe-coding 4.0
+<span class="k">Uptime</span>:    大学四年一事无成
+<span class="k">Shell</span>:     Ciallo～(∠・ω&lt; )⌒★
+<span class="k">Skills</span>:    算法 · 前后端 · 数据库
+            网络攻防 · 嵌入式 · 路由交换
+            数据分析 · MMD神秘视频
+            文学 · 哲学 · 政治
+<span class="k">Weakness</span>: 听! 不! 懂! (不要聊太深奥)
+<span class="k">Habit</span>:    挖一万个新坑, 不填
+<span class="k">Aliases</span>:  Iris · 鸢尾 · 月
+            ~~小爱同学~~ <span class="pk">(不是卡密)</span>
+<span class="ascii">
+   ███╗   ██╗    ██╗██╗
+   █████╗ ████╗  ██║██║
+   ██╔██╗██╔██╗ ██║██║
+   ██║╚═╝██║╚██╗██║██║
+   ██║   ██║ ╚████║██╗
+   ╚═╝   ╚═╝  ╚═══╝╚═╝</span></pre>
+    </div>
+    <pre style="margin-top:18px;"><span class="prompt-user">iris@github</span>:<span class="prompt-path">~</span>$ <span class="cmd">ls ~/skills/</span></pre>
+    <div class="chips">
+      <span class="chip">C</span>
+      <span class="chip">C++</span>
+      <span class="chip">Python</span>
+      <span class="chip">Java</span>
+      <span class="chip">MySQL</span>
+      <span class="chip">Linux</span>
+      <span class="chip">Docker</span>
+      <span class="chip">嵌入式</span>
+      <span class="chip">信息安全</span>
+      <span class="chip">路由交换</span>
+      <span class="chip">MMD</span>
+      <span class="chip">科研绘图</span>
+    </div>
+    <pre style="margin-top:18px;"><span class="prompt-user">iris@github</span>:<span class="prompt-path">~</span>$ <span class="cmd">exit</span></pre>
+  </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="741" viewBox="0 0 900 741" font-family="'JetBrains Mono','Noto Sans Mono CJK SC','Cascadia Code',Consolas,monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="801" viewBox="0 0 960 801" font-family="'JetBrains Mono','Noto Sans Mono CJK SC','Cascadia Code',Consolas,monospace">
 <style>
   .ln { opacity: 1; }
   .ch { opacity: 1; }
@@ -13,19 +13,31 @@
     <feGaussianBlur stdDeviation="1.6" result="b"/>
     <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
+  <!-- external CRT rim glow (visible on white backgrounds) -->
+  <filter id="rim" x="-15%" y="-15%" width="130%" height="130%">
+    <feGaussianBlur stdDeviation="14"/>
+  </filter>
+  <radialGradient id="rimGrad" cx="50%" cy="50%" r="60%">
+    <stop offset="60%" stop-color="#3cff7a" stop-opacity="0"/>
+    <stop offset="85%" stop-color="#3cff7a" stop-opacity="0.45"/>
+    <stop offset="100%" stop-color="#3cff7a" stop-opacity="0"/>
+  </radialGradient>
   <radialGradient id="vig" cx="50%" cy="50%" r="75%">
     <stop offset="55%" stop-color="#000" stop-opacity="0"/>
     <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
   </radialGradient>
-  <pattern id="scan" width="1" height="3" patternUnits="userSpaceOnUse">
-    <rect width="1" height="2" fill="#000" fill-opacity="0.38"/>
-    <rect y="2" width="1" height="1" fill="#000" fill-opacity="0"/>
+  <pattern id="scan" width="1" height="4" patternUnits="userSpaceOnUse">
+    <rect width="1" height="2" fill="#000" fill-opacity="0.42"/>
+    <rect y="2" width="1" height="2" fill="#000" fill-opacity="0"/>
   </pattern>
 </defs>
 <g class="flicker">
-  <path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z" fill="#020a04" stroke="#0f3d1f" stroke-width="3"/>
-  <path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z" fill="#03150a"/>
-  <clipPath id="screen"><path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z"/></clipPath>
+  <!-- external phosphor glow halo (visible on light backgrounds) -->
+  <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="#3cff7a" fill-opacity="0.55" filter="url(#rim)"/>
+  <!-- glass body -->
+  <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="#020a04" stroke="#1f7a3d" stroke-width="6"/>
+  <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="#03150a"/>
+  <clipPath id="screen"><path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z"/></clipPath>
   <g clip-path="url(#screen)">
     <g filter="url(#glow)">
       <text x="40" y="61" font-size="15"><tspan fill="#aaffb0">iris@github</tspan><tspan fill="#2ecc66">:</tspan><tspan fill="#3dff7a">~</tspan><tspan fill="#2ecc66">$ </tspan><tspan class="ch" fill="#aaffb0">n</tspan><tspan class="ch" fill="#aaffb0">e</tspan><tspan class="ch" fill="#aaffb0">o</tspan><tspan class="ch" fill="#aaffb0">f</tspan><tspan class="ch" fill="#aaffb0">e</tspan><tspan class="ch" fill="#aaffb0">t</tspan><tspan class="ch" fill="#aaffb0">c</tspan><tspan class="ch" fill="#aaffb0">h</tspan></text>
@@ -75,10 +87,10 @@
   <text x="40" y="655" font-size="15"><tspan fill="#aaffb0">iris@github</tspan><tspan fill="#2ecc66">:</tspan><tspan fill="#3dff7a">~</tspan><tspan fill="#2ecc66">$ </tspan><tspan class="ch" fill="#aaffb0">e</tspan><tspan class="ch" fill="#aaffb0">x</tspan><tspan class="ch" fill="#aaffb0">i</tspan><tspan class="ch" fill="#aaffb0">t</tspan></text>
   <rect class="cur" x="205.3" y="643" width="7.699999999999999" height="14" fill="#aaffb0"/>
     </g>
-    <path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z" fill="url(#scan)"/>
-    <path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z" fill="#2bff70" fill-opacity="0.045"/>
-    <path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z" fill="url(#vig)"/>
+    <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="url(#scan)"/>
+    <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="#2bff70" fill-opacity="0.05"/>
+    <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="url(#vig)"/>
   </g>
-  <path d="M 10 16 Q 450 0 890 16 Q 916 370.5 890 725 Q 450 741 10 725 Q -16 370.5 10 16 Z" fill="none" stroke="#1f7a3d" stroke-width="1.2" opacity="0.7"/>
+  <path d="M 40 46 Q 480 30 920 46 Q 946 400.5 920 755 Q 480 771 40 755 Q 14 400.5 40 46 Z" fill="none" stroke="#3cff7a" stroke-width="2" opacity="0.85"/>
 </g>
 </svg>

@@ -91,6 +91,7 @@ async function fetchStats(user) {
 }
 
 // ---- render constants ----
+const RIM_PAD = 30; // extra canvas for the phosphor glow halo
 const W = 900;
 const PAD = 40;
 const TITLE_PAD = 46; // space above first line
@@ -332,16 +333,21 @@ function render(CFG, stats) {
 
   // ---------- CRT screen ----------
   const H = Math.ceil(y + PAD - BLOCK_GAP + 10);
+  // shift everything inward to leave room for the outer phosphor halo
+  const OX = RIM_PAD;
+  const OY = RIM_PAD;
+  const VW = W;
+  const VH = H;
   const BX = 10;
   const BOW = 16;
   const screenPath =
-    `M ${BX} ${BOW} ` +
-    `Q ${W / 2} 0 ${W - BX} ${BOW} ` +
-    `Q ${W + BX * 1.6} ${H / 2} ${W - BX} ${H - BOW} ` +
-    `Q ${W / 2} ${H} ${BX} ${H - BOW} ` +
-    `Q ${-BX * 1.6} ${H / 2} ${BX} ${BOW} Z`;
+    `M ${OX + BX} ${OY + BOW} ` +
+    `Q ${OX + VW / 2} ${OY} ${OX + VW - BX} ${OY + BOW} ` +
+    `Q ${OX + VW + BX * 1.6} ${OY + VH / 2} ${OX + VW - BX} ${OY + VH - BOW} ` +
+    `Q ${OX + VW / 2} ${OY + VH} ${OX + BX} ${OY + VH - BOW} ` +
+    `Q ${OX - BX * 1.6} ${OY + VH / 2} ${OX + BX} ${OY + BOW} Z`;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" font-family="'JetBrains Mono','Noto Sans Mono CJK SC','Cascadia Code',Consolas,monospace">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${VW + RIM_PAD * 2}" height="${VH + RIM_PAD * 2}" viewBox="0 0 ${VW + RIM_PAD * 2} ${VH + RIM_PAD * 2}" font-family="'JetBrains Mono','Noto Sans Mono CJK SC','Cascadia Code',Consolas,monospace">
 <style>
   .ln { opacity: 1; }
   .ch { opacity: 1; }
@@ -356,17 +362,29 @@ function render(CFG, stats) {
     <feGaussianBlur stdDeviation="1.6" result="b"/>
     <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
+  <!-- external CRT rim glow (visible on white backgrounds) -->
+  <filter id="rim" x="-15%" y="-15%" width="130%" height="130%">
+    <feGaussianBlur stdDeviation="14"/>
+  </filter>
+  <radialGradient id="rimGrad" cx="50%" cy="50%" r="60%">
+    <stop offset="60%" stop-color="#3cff7a" stop-opacity="0"/>
+    <stop offset="85%" stop-color="#3cff7a" stop-opacity="0.45"/>
+    <stop offset="100%" stop-color="#3cff7a" stop-opacity="0"/>
+  </radialGradient>
   <radialGradient id="vig" cx="50%" cy="50%" r="75%">
     <stop offset="55%" stop-color="#000" stop-opacity="0"/>
     <stop offset="100%" stop-color="#000" stop-opacity="0.55"/>
   </radialGradient>
-  <pattern id="scan" width="1" height="3" patternUnits="userSpaceOnUse">
-    <rect width="1" height="2" fill="#000" fill-opacity="0.38"/>
-    <rect y="2" width="1" height="1" fill="#000" fill-opacity="0"/>
+  <pattern id="scan" width="1" height="4" patternUnits="userSpaceOnUse">
+    <rect width="1" height="2" fill="#000" fill-opacity="0.42"/>
+    <rect y="2" width="1" height="2" fill="#000" fill-opacity="0"/>
   </pattern>
 </defs>
 <g class="flicker">
-  <path d="${screenPath}" fill="#020a04" stroke="#0f3d1f" stroke-width="3"/>
+  <!-- external phosphor glow halo (visible on light backgrounds) -->
+  <path d="${screenPath}" fill="#3cff7a" fill-opacity="0.55" filter="url(#rim)"/>
+  <!-- glass body -->
+  <path d="${screenPath}" fill="#020a04" stroke="#1f7a3d" stroke-width="6"/>
   <path d="${screenPath}" fill="#03150a"/>
   <clipPath id="screen"><path d="${screenPath}"/></clipPath>
   <g clip-path="url(#screen)">
@@ -374,10 +392,10 @@ function render(CFG, stats) {
       ${body.join("\n  ")}
     </g>
     <path d="${screenPath}" fill="url(#scan)"/>
-    <path d="${screenPath}" fill="#2bff70" fill-opacity="0.045"/>
+    <path d="${screenPath}" fill="#2bff70" fill-opacity="0.05"/>
     <path d="${screenPath}" fill="url(#vig)"/>
   </g>
-  <path d="${screenPath}" fill="none" stroke="#1f7a3d" stroke-width="1.2" opacity="0.7"/>
+  <path d="${screenPath}" fill="none" stroke="#3cff7a" stroke-width="2" opacity="0.85"/>
 </g>
 </svg>`;
 }

@@ -1,0 +1,61 @@
+# >>> 一切终端图片的内容都由这个文件控制 <<<
+# 修改后运行 .github/workflows/render-terminal.yml（或本地 node terminal/build-svg.js）重新生成
+# 文本标记: {bright}文字{/} 表示高亮(新写的字/强调), 普通文字为主亮度
+
+avatar:
+  image: img/main.png
+  width: 290
+  height: 380
+
+prompt:
+  user: iris@github
+  path: "~"
+  github: theforeveriris   # 用于拉取 commits/stars 统计的真实 GitHub 用户名
+
+commands:
+  - run: neofetch
+    neofetch:
+      title: iris@github
+      lines:
+        - "OS:        计科院学生 {bright}(快过期){/}"
+        - "Host:      普普通通双非一本"
+        - "Uptime:    大学四年一事无成"
+        - "Shell:     Ciallo～(∠・ω< )⌒★"
+        - "Weakness: 听! 不! 懂! {bright}(不要聊太深奥){/}"
+        - "Habit:    挖一万个新坑, 不填"
+        - "Aliases:  Iris · 鸢尾 · 月 {dim}~~小爱同学~~{/}"
+        - "{bright}Commits:{/} {commits}   {bright}Stars:{/} {stars}"
+      palette: true
+
+  - run: ls ~/skills/
+    ls:
+      columns: 8
+      items:
+        - vibecoding
+        - C
+        - C++
+        - Python
+        - Java
+        - MySQL
+        - Linux
+        - Docker
+        - 嵌入式
+        - 信息安全
+        - 路由交换
+        - MMD
+        - 科研绘图
+        - HTML
+        - JS
+        - CSS
+        - TypeScript
+        - Kotlin
+        - Flutter
+
+  - run: ls -a -l ~/repos/
+    ls_repos:
+      repos:
+        - simple-voice-tools
+        - simulated-12306-view
+        - md-preview
+
+  - run: exit

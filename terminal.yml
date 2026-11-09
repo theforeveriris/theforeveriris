@@ -17,13 +17,13 @@ commands:
     neofetch:
       title: iris@github
       lines:
-        - "OS:        计科院学生 {bright}(快过期){/}"
-        - "Host:      普普通通双非一本"
-        - "Uptime:    大学四年一事无成"
+        - "OS:        Irisy 2.0 {bright} {/}"
+        - "Host:      the Normal"
+        - "Uptime:    2023 "
         - "Shell:     Ciallo～(∠・ω< )⌒★"
-        - "Weakness: 听! 不! 懂! {bright}(不要聊太深奥){/}"
-        - "Habit:    挖一万个新坑, 不填"
-        - "Aliases:  Iris · 鸢尾 · 月 {dim}~~小爱同学~~{/}"
+        - "Weakness:  Avoid delving into technical issues{/}"
+        - "Habit:     Start 10,000 new projects—and all unfinished."
+        - "Aliases:   theforeveriris{/}"
         - "{bright}Commits:{/} {commits}   {bright}Stars:{/} {stars}"
       palette: true
 
